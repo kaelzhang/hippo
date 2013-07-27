@@ -441,11 +441,11 @@ function onLoad(){
 _domreadyFn && _domreadyFn(onDomReady);
 _loadFn && _loadFn(onLoad);
 
-};
+}; // end init
 
 
 if(window.define){
-    define('hippo', ['jquery@1.9.2'], function (require, exports) {
+    define('hippo@0.1.0', ['jquery@1.9.2'], function (require, exports) {
         exports.init = function () {
             window._hip && _hip.push(['_setDomReadyMethod', require('jquery')]);
             init();
@@ -454,9 +454,6 @@ if(window.define){
 }else{
     init();
 }
-
-     
-}); // end init
 
 })(); // end anonymous function
 
