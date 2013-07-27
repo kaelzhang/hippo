@@ -1,0 +1,40 @@
+{
+  "name": "hippo",
+  "description": "Hippo, a simple solution for web analytics.",
+  "version": "0.1.0",
+  "homepage": "",
+  "author": {
+    "name": "Kael",
+    "email": "i@kael.me"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://code.dianpingoa.com/f2ei/hippo.git"
+  },
+  "bugs": {
+    "url": ""
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "/blob/master/LICENSE-MIT"
+    }
+  ],
+  "engines": {
+    "node": ">= 0.6.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-mocha": "~0.3.1",
+    "grunt-contrib-connect": "~0.3.0",
+    "grunt-contrib-concat": "~0.1.2",
+    "grunt-contrib-uglify": "~0.1.1",
+    "grunt-contrib-jshint": "~0.1.1",
+    "grunt-contrib-watch": "~0.2.0"
+  },
+  "keywords": [],
+  "main": "lib/index.js"
+}

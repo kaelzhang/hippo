@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+
+<script 
+src="http://localhost:8765/mod/neuronjs/2.0.1/neuron.js" 
+id="neuron-js" 
+data-path="mod" 
+data-server="http://localhost:8765"></script>
+
+<script>
+NR.Loader.on({
+    provide: function(e) {
+        console.log('event: provide', e.mod.id);
+    },
+
+    load: function(e) {
+        console.log('event: load', e.mod.id);
+    }
+});
+</script>
+
+<link rel="stylesheet" href="tool/mocha.css" />
+<script src="./tool/chai.js"></script>
+<script src="./tool/mocha.js"></script>
+
+</head>
+
+<body>
+
+<div id="mocha"></div>
+
+<script>
+
+var assert = chai.assert;
+var expect = chai.expect;
+
+chai.should();
+mocha.NO_CATCH_EXCEPTIONS = true;
+!window.PHANTOMJS && mocha.setup("bdd");
+
+</script>
+<script src="./spec/hippo_test.js"></script>
+
+<script>
+
+window.onload = function() {
+    mocha.run();
+};
+
+</script>
+
+</body>
+
+</html>
