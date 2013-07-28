@@ -5,12 +5,14 @@
 (function () {
 
 
-function init (HIPPO_HOST_KEY) {
+function init () {
 
 function deprecated (method) {
     var console = win.console;
     console && console.warn && console.warn('Method `' + method + '` is deprecated and will be removed in the future. Plz update soon.');
 }
+
+var HIPPO_HOST_KEY = '_hip';
 
 var
 
