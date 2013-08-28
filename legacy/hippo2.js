@@ -457,7 +457,7 @@ var addEvent = element_test[ADD_EVENT_LISTENER] ?
             el.attachEvent('on' + type, fn);
         };
         
-var removeEvent: element_test[REMOVE_EVENT_LISTENER] ?
+var removeEvent = element_test[REMOVE_EVENT_LISTENER] ?
         function(el, type, fn, useCapture){
             el[REMOVE_EVENT_LISTENER](type, fn, !!useCapture);
         } :
