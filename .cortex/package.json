@@ -1,0 +1,8 @@
+{
+  "dirs": [
+    {
+      "dir": "legacy",
+      "to": "hls"
+    }
+  ]
+}
