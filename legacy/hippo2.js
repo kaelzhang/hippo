@@ -399,22 +399,6 @@ function onLoad(){
 
 function bind_domready(fn){
 
-    function poll_scroll(){
-        try {
-            // doScroll technique by Diego Perini http://javascript.nwbox.com/IEContentLoaded/
-            doScroll('left');
-            ready();
-        } catch(ex) {
-            setTimeout(poll_scroll, 10);
-        }
-    };
-    
-    var ready = function (){
-        removeEvent(doc, eventType, ready);
-        removeEvent(win, 'load', ready);
-        fn();
-    };
-
     // Catch cases where ready() is called after the
     // browser event has already occurred.
     if(doc.readyState === 'complete'){
@@ -424,6 +408,12 @@ function bind_domready(fn){
     var doScroll = doc.documentElement.doScroll;
     var eventType = doScroll ? 'readystatechange' : 'DOMContentLoaded';
 
+    var ready = function (){
+        removeEvent(doc, eventType, ready);
+        removeEvent(win, 'load', ready);
+        fn();
+    };
+
     addEvent(doc, eventType, ready);
 
     // A fallback to load
@@ -431,6 +421,16 @@ function bind_domready(fn){
     addEvent(win, 'load', ready);
     
     if(doScroll){
+        var poll_scroll = function (){
+            try {
+                // doScroll technique by Diego Perini http://javascript.nwbox.com/IEContentLoaded/
+                doScroll('left');
+                ready();
+            } catch(ex) {
+                setTimeout(poll_scroll, 10);
+            }
+        };
+
         var not_framed = false;
         
         try {
