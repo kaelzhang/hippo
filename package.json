@@ -1,7 +1,7 @@
 {
     "name": "hippo",
     "description": "Hippo, a simple solution for web analytics.",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "homepage": "",
     "author": {
         "name": "Kael",
@@ -37,12 +37,5 @@
     },
     "keywords": [],
     "main": "lib/index.js",
-    "cortex": {
-        "dependencies": {
-            "jquery": "~1.9.2"
-        },
-        "exactDependencies": {
-            "jquery": "1.9.2"
-        }
-    }
+    "cortex": {}
 }
