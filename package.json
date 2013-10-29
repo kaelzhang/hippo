@@ -9,7 +9,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git://code.dianpingoa.com/f2ei/hippo.git"
+        "url": "git@github.com:kaelzhang/hippo.git"
     },
     "bugs": {
         "url": ""
