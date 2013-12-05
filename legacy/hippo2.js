@@ -279,23 +279,17 @@ document.hippo = document_hippo;
 // new Hippo
 ////////////////////////////////////////////////////////////////////////////
 
-var
 
-Hippo = win[HIPPO_HOST_KEY];
+var auto_pv = true;
 
-if(Hippo){
+var Hippo = win[HIPPO_HOST_KEY];
 
-    // if new hippo(`_hip`) exists, push `'_setPVInitData'` to make sure there is a pv request
-    Hippo.push(['_setPVInitData']);
-    
-}else{
-    Hippo = win[HIPPO_HOST_KEY] = [];
+if(!Hippo){
+    Hippo = win[HIPPO_HOST_KEY] = [];   
 }
 
 
-var
-
-HIPPO_METHODS = {
+var HIPPO_METHODS = {
     _setPageId: function(pageId){
         _pageId = pageId >>> 0;
     },
@@ -313,6 +307,10 @@ HIPPO_METHODS = {
         HIPPO_METHODS._setPVInitData = NOOP;
         pv(data);
     },
+
+    _autoPV: function (auto) {
+        auto_pv = auto;
+    }
     
     mv: function(data, override){
         send(MODULE_TRACK_KEY, ['', ''], data || data_attached, override);
@@ -340,11 +338,14 @@ Hippo.push = function(command){
     }
 };
 
-
 // apply 
 Hippo.forEach(function(command){
     Hippo.push(command);
 });
+
+
+// if new hippo(`_hip`) exists, push `'_setPVInitData'` to make sure there is a pv request
+auto_pv && Hippo.push(['_setPVInitData']);
 
 
 Hippo.length = 0;
