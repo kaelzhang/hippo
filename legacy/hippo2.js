@@ -310,7 +310,7 @@ var HIPPO_METHODS = {
 
     _autoPV: function (auto) {
         auto_pv = auto;
-    }
+    },
     
     mv: function(data, override){
         send(MODULE_TRACK_KEY, ['', ''], data || data_attached, override);
