@@ -18,14 +18,12 @@ _shopType   = 0,
 _cityId     = 0,
 _domain     = 'www.dianping.com',
 
-data_attached = {},
-
 // @const
 NOOP = function(){},
 
 URL_BASE = 'http://hls.' + ( /51ping/.test(doc.domain) ? '51ping' : 'dianping' ) + '.com/hippo.gif?',
 
-NET_SPEED_SAMPLE_RATE   = 1,
+// NET_SPEED_SAMPLE_RATE   = 1,
 
 SCREEN_SIZE_KEY         = '__hsr',
 SCREEN_COLOR_DEPTH_KEY  = '__hsc',
@@ -126,8 +124,8 @@ function chk(key, value) {
 // @param {string} key
 // @param {Array.<string>} value
 // @param {object} data
-function send(key, value, data) {
-    var query = generateQuery(key, value, data);
+function send(key, value, data, override) {
+    var query = generateQuery(key, value, data, override);
     
     new Image(1, 1).src = URL_BASE + query;
 };
@@ -168,25 +166,38 @@ generateQuery = (function () {
     // @param {string} key
     // @param {Array.<mixed>} value
     // @param {Object=} data
-    return function(key, value, data){
-        var 
-        
-        current = {
+    // @param {Object=}
+    return function(key, value, data, override){
+        var current = {
             '__hlt': _domain,
             '__ppp': _pageId,
             '__had': stringify(data || {}),
             'force': + new Date
         };
+
+        mix(current, presets);
+
+        override = override || {};
+
+        if ( override.href ) {
+            current[LOCATION_HREF_KEY] = override.href;
+        }
+
+        if ( override.referrer ) {
+            current[LOCATION_REFERRER_KEY] = override.referrer;
+        }
         
         value.push(_cityId + '|' + _shopType);
 
         current[key] = value.join('|');
         
-        return toQueryString(mix(current, presets));
+        return toQueryString(current);
     };
     
 })();
 
+
+var data_attached = {};
 
 ////////////////////////////////////////////////////////////////////////////
 // old Hippo for legacy
@@ -196,11 +207,8 @@ generateQuery = (function () {
 // @param {string=} z base url of site
 function document_hippo(pageId, domain){
     HIPPO_METHODS._setPageId(pageId);
-    // HIPPO_METHODS._setDomain(domain);
-    
     return document_hippo;
 };
-
 
 mix(document_hippo, {
 
@@ -243,7 +251,6 @@ mix(document_hippo, {
         HIPPO_METHODS._setCityId(cityId);
         HIPPO_METHODS._setShopType(shopType);
         HIPPO_METHODS._setPVInitData(data_attached);
-        data_attached = {};
         
         return document_hippo;
     },
@@ -302,39 +309,36 @@ HIPPO_METHODS = {
     },
     
     _setPVInitData: function(data){
-        send(PAGE_TRACK_KEY, [], data);
+        // run once
+        HIPPO_METHODS._setPVInitData = NOOP;
+        pv(data);
     },
     
-    mv: function(data){
-        send(
-            MODULE_TRACK_KEY,
-            ['', ''],
-            data
-        );
+    mv: function(data, override){
+        send(MODULE_TRACK_KEY, ['', ''], data || data_attached, override);
+    },
+
+    pv: function(data, override){
+        pv(data, override);
     }
 };
+
+
+function pv (data, override) {
+    send(PAGE_TRACK_KEY, [], data || data_attached, override);
+}
+
 
 Hippo.push = function(command){
     var action, data, method;
 
     if(command){
-        action = command[0];
-        data = command[1];
+        action = command.shift();
         method = HIPPO_METHODS[action];
         
-        method && method(data);
+        method && method.apply(null, command);
     }
 };
-
-
-['_setPageId', '_setCityId', '_setShopType', /* '_setDomain',  */'_setPVInitData'].forEach(function(name){
-    var method = HIPPO_METHODS[name];
-    
-    HIPPO_METHODS[name] = function(){
-        method.apply(this, arguments);
-        HIPPO_METHODS[name] = NOOP;
-    };
-});
 
 
 // apply 
@@ -345,9 +349,9 @@ Hippo.forEach(function(command){
 
 Hippo.length = 0;
 
-if(Math.random() > NET_SPEED_SAMPLE_RATE){
-    return;
-}
+// if(Math.random() > NET_SPEED_SAMPLE_RATE){
+//     return;
+// }
 
 // pagetiming
 
