@@ -197,11 +197,12 @@ generateQuery = (function () {
 })();
 
 
-var data_attached = {};
-
 ////////////////////////////////////////////////////////////////////////////
 // old Hippo for legacy
 ////////////////////////////////////////////////////////////////////////////
+
+// legacy for .ext()
+var data_attached = {};
 
 // @param {number} page id of current page
 // @param {string=} z base url of site
@@ -256,15 +257,14 @@ mix(document_hippo, {
     },
     
     // send a module-view request
-    // @param moduleId{Number}
-    // @param value{*}
+    // @param {number} moduleId
+    // @param {mixed} value
     mv: function (moduleId, value) {
     
         if (chk(moduleId, value)) {
             data_attached[moduleId] = value;
             
             HIPPO_METHODS.mv(data_attached);
-            data_attached = {};
         }
         
         return document_hippo;
@@ -281,6 +281,7 @@ document.hippo = document_hippo;
 
 
 var auto_pv = true;
+var auto_page_timing = true;
 
 var Hippo = win[HIPPO_HOST_KEY];
 
@@ -311,9 +312,14 @@ var HIPPO_METHODS = {
     _autoPV: function (auto) {
         auto_pv = auto;
     },
+
+    _autoPageTiming: function (timing) {
+        auto_page_timing = timing;
+    },
     
     mv: function(data, override){
         send(MODULE_TRACK_KEY, ['', ''], data || data_attached, override);
+        data_attached = {};
     },
 
     pv: function(data, override){
@@ -324,6 +330,7 @@ var HIPPO_METHODS = {
 
 function pv (data, override) {
     send(PAGE_TRACK_KEY, [], data || data_attached, override);
+    data_attached = {};
 }
 
 
@@ -472,7 +479,10 @@ var removeEvent = element_test[REMOVE_EVENT_LISTENER] ?
         };
 
 
-bind_domready(onDomReady);
-addEvent(win, 'load', onLoad);
+if ( auto_page_timing ) {
+    bind_domready(onDomReady);
+    addEvent(win, 'load', onLoad);
+}
+
 
 })('_hip');
