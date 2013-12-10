@@ -9,7 +9,13 @@
 ### 基本语法
 
 ```
-_hip.push([action, data]);
+_hip.push(action);
+```
+
+例如：发送一个 mv
+
+```
+_hip.push(['mv', {...}]);
 ```
 
 ## Actions
@@ -17,7 +23,7 @@ _hip.push([action, data]);
 ### 发送 module view 请求
 
 ```
-['mv', data_object, override=]
+['mv', data_object]
 ```
 
 #### 示例
@@ -32,7 +38,7 @@ _hip.push(['mv', {
 ### 发送 page view 请求
 
 ```
-['pv', data_object, override=]
+['pv', data_object]
 ```
 
 请 **特别注意**，大部分情况下，只要页面中加入 hippo，会自动发送一个 pv 请求，因此一般情况下，不需要主动调用该 action。
@@ -88,6 +94,31 @@ _deprecated_
 
 目前，我们的网站上仅有 Category=1000 的页面，才会有 shop_type，因此，对于其他的页面，shop_type 可以传 0，或者该代码行都不出现.
 
+### 强制指定页面的地址
+
+```
+['_setHref', href]
+```
+##### 说明
+
+对于普通页面，请 **慎用** 该方法。
+
+
+### 强制指定页面的 referrer
+
+注意拼写：
+
+```
+['_setReferrer', referrer]
+```
+##### 说明
+
+1.
+如果你的页面，使用了某些 JavaScript MVC 框架来进行页面的渲染和路由，并且使用了 hash 来进行路由的操作，那么 `'_setReferrer'` 和 `'_setHref'` 方法会帮到你。
+但是 `referrer` 以及 `href` 的取值需要业务自己来管理。
+
+2.
+对于普通页面，请 **慎用** 该方法。
 
 ## 初始化
 
