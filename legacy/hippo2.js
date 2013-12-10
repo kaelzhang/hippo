@@ -10,6 +10,7 @@ win = window,
 doc = win.document,
 loc = doc.location,
 ref = doc.referrer,
+href = loc.href;
 screen = win.screen,
 
 // default params
@@ -141,14 +142,6 @@ generateQuery = (function () {
     // 有些内容是单次会话保持不变的，先计算出来
     var h, w, s, c, f,
         presets = {};
-    
-    if(loc && loc.href){
-        presets[LOCATION_HREF_KEY] = loc.href;
-    }
-    
-    if(ref){
-        presets[LOCATION_REFERRER_KEY] = ref;
-    }
 
     if (s = screen) {
         h = s.height;
@@ -179,6 +172,15 @@ generateQuery = (function () {
 
         override = override || {};
 
+        if(href){
+            current[LOCATION_HREF_KEY] = href;
+        }
+        
+        if(ref){
+            current[LOCATION_REFERRER_KEY] = ref;
+        }
+
+        // legacy
         if ( override.href ) {
             current[LOCATION_HREF_KEY] = override.href;
         }
@@ -315,6 +317,14 @@ var HIPPO_METHODS = {
 
     _autoPageTiming: function (timing) {
         auto_page_timing = timing;
+    },
+
+    _setReferrer: function (referrer) {
+        ref = referrer;
+    },
+
+    _setHref: function (h) {
+        href = h;
     },
     
     mv: function(data, override){
