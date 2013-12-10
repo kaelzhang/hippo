@@ -198,24 +198,3 @@ module 名需要开发，BI，与需求方进行约定。
 其他key，一般为描述性的键，这些键的含义及用法，可以参考上面的文档。
 
 
-### override
-
-用来覆盖 pv 或者 mv 请求中的基础数据，包括：
-
-#### override.href
-
-自定义当前页面的页面地址
-
-##### 例子
-
-比如，如果当前页面的地址为 `"http://m.dianping.com"`，但是你想让统计的页面的地址为 `"http://m.dianping.com/_abc#blah-blah"`，可以使用如下的代码：
-
-```
-_hip.push(['pv', {}, {
-	href: 'http://m.dianping.com/_abc#blah-blah'
-}]);
-```
-
-#### override.referrer
-
-自定义当前页面的 referrer
