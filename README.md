@@ -2,7 +2,7 @@
 
 > Dianping Web Analytics
 
-### 如果阅读完文档之后，还有任何疑问，可以直接在项目中提交新 issue 来提问。
+### 如果阅读完文档之后，还有任何疑问，可以直接在项目中提交新 [issue](http://code.dianpingoa.com/f2ei/hippo/issues) 来提问。
 
 ## Synopsis
 
