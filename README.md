@@ -243,6 +243,7 @@ Guid 及 request id 被用于分析用户页面访问链路。
 
 ```
 var _hip = [
+	// 若这里已经有其他定义了，请在 `_hip` 这个数组中新增
 	[ '_setRequestId', 'xxxxxxx' ],
 	[ '_setGuid', 'xxxxxxx' ]
 ];
