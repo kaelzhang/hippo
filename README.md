@@ -129,6 +129,8 @@ _deprecated_
 ['_setGuid', guid]
 ```
 
+Guid 及 request id 被用于分析用户页面访问链路。
+
 ### 设置页面的 Request ID
 
 ```
@@ -213,3 +215,37 @@ module 名需要开发，BI，与需求方进行约定。
 其他key，一般为描述性的键，这些键的含义及用法，可以参考上面的文档。
 
 
+## 使用场景
+
+这里说明几种使用场景，来说明最常用的使用方式，如果有任何疑问，可以到 [这里](http://code.dianpingoa.com/f2ei/hippo/issues) 创建新 issue 来提问。
+
+### 使用 dp-common-web 服务
+
+如果你的业务使用了 dp-common-web，并且使用了一些预先配置的页头模版，那么 **大部分情况下**，你不用进行任何 hippo 的配置。
+
+这种情况下，请跳过后面的内容。
+
+### 最常用的 Hippo 初始化代码
+
+常用的情况下，你不用进行任何的设置，但是最好在页面最顶部加入如下代码：
+
+```
+<script>
+var _hip = [];
+</script>
+```
+
+这样做的好处是，当 hippo 的 JavaScript 文件没有加载到的时候，某些用户行为仍然能够被 hippo 记录。
+
+### Request Id 与 Guid
+
+Guid 及 request id 被用于分析用户页面访问链路。
+
+```
+var _hip = [
+	[ '_setRequestId', 'xxxxxxx' ],
+	[ '_setGuid', 'xxxxxxx' ]
+];
+```
+
+关于如何获取到相关的参数，请查看后端相关文档。
