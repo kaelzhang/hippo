@@ -27,6 +27,6 @@
         "test": "make test"
     },
     "keywords": [],
-    "main": "lib/index.js",
+    "main": "lib/hippo2.js",
     "cortex": {}
 }

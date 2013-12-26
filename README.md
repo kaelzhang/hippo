@@ -122,6 +122,19 @@ _deprecated_
 2.
 对于普通页面，请 **慎用** 该方法。
 
+
+### 设置服务端 GUID
+
+```
+['_setGuid', guid]
+```
+
+### 设置页面的 Request ID
+
+```
+['_setRequestId', requestId]
+```
+
 ## 初始化
 
 ### 特别说明
