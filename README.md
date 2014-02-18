@@ -131,11 +131,25 @@ _deprecated_
 
 Guid 及 request id 被用于分析用户页面访问链路。
 
+**deprecated** 请使用 `['_setCustomConst', 'serverguid', guid]` 代替。
+
 ### 设置页面的 Request ID
 
 ```
 ['_setRequestId', requestId]
 ```
+
+**deprecated** 请使用 `['_setCustomConst', 'reqid', requestId]` 代替。
+
+
+### 设置全局的公用常量
+
+```
+['_setCustomConst', key, value]
+```
+
+执行该方法后，页面中的每个 pv 和 mv 请求都会包含该参数。
+
 
 ## 初始化
 
@@ -244,8 +258,8 @@ Guid 及 request id 被用于分析用户页面访问链路。
 ```
 var _hip = [
 	// 若这里已经有其他定义了，请在 `_hip` 这个数组中新增
-	[ '_setRequestId', 'xxxxxxx' ],
-	[ '_setGuid', 'xxxxxxx' ]
+	[ '_setCustomConst', 'reqid', 'xxxxxxx' ],
+	[ '_setCustomConst', 'serverguid', 'xxxxxxx' ]
 ];
 ```
 
