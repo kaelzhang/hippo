@@ -1,7 +1,7 @@
 {
   "dirs": [
     {
-      "dir": "legacy",
+      "dir": "lib",
       "to": "hls"
     }
   ]
