@@ -1,6 +1,7 @@
 # Cortex
 .cortex/
 build/
+neurons/
 
 # PHP files
 index.php
